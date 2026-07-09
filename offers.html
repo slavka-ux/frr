@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Пропозиції — FlyBooking</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #f1f5f9;
+            color: #0f172a;
+            line-height: 1.6;
+        }
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+        }
+
+        .header {
+            background: #ffffff;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        .navbar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .logo {
+            font-size: 1.25rem;
+            font-weight: 800;
+            color: #0f172a;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .logo span {
+            color: #2563eb;
+        }
+        .nav-links {
+            display: flex;
+            gap: 1.5rem;
+            list-style: none;
+            align-items: center;
+        }
+        .nav-links a {
+            color: #64748b;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.875rem;
+            transition: color 0.2s;
+        }
+        .nav-links a:hover {
+            color: #2563eb;
+        }
+        .nav-links a.active {
+            color: #2563eb;
+            font-weight: 600;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.625rem 1.5rem;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 0.875rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            text-decoration: none;
+            font-family: inherit;
+        }
+        .btn-primary {
+            background: #2563eb;
+            color: #fff;
+        }
+        .btn-primary:hover {
+            background: #1d4ed8;
+            transform: translateY(-2px);
+        }
+        .btn-outline {
+            background: transparent;
+            color: #2563eb;
+            border: 2px solid #2563eb;
+        }
+        .btn-outline:hover {
+            background: #2563eb;
+            color: #fff;
+        }
+        .btn-block {
+            width: 100%;
+            justify-content: center;
+        }
+
+        .page-title {
+            font-size: 2rem;
+            font-weight: 800;
+            margin: 2rem 0 0.25rem;
+        }
+        .page-subtitle {
+            color: #64748b;
+            margin-bottom: 2rem;
+        }
+
+        .offers-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+        }
+
+        .offer-card {
+            background: #ffffff;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+            transition: all 0.2s;
+        }
+        .offer-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        }
+        .offer-image {
+            height: 180px;
+            background-size: cover;
+            background-position: center;
+            position: relative;
+        }
+        .offer-discount {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: #ef4444;
+            color: #fff;
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px;
+            font-size: 0.75rem;
+            font-weight: 700;
+        }
+        .offer-body {
+            padding: 1.25rem;
+        }
+        .offer-route {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 0.5rem;
+        }
+        .offer-origin,
+        .offer-destination {
+            font-weight: 700;
+            font-size: 0.875rem;
+        }
+        .offer-arrow {
+            color: #94a3b8;
+            font-size: 0.75rem;
+        }
+        .offer-price {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 0.5rem;
+        }
+        .price-old {
+            color: #94a3b8;
+            text-decoration: line-through;
+            font-size: 0.875rem;
+        }
+        .price-new {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: #2563eb;
+        }
+        .offer-meta {
+            display: flex;
+            gap: 1rem;
+            font-size: 0.75rem;
+            color: #64748b;
+            margin-bottom: 0.75rem;
+        }
+        .offer-meta i {
+            margin-right: 0.25rem;
+        }
+
+        .footer {
+            background: #0f172a;
+            color: rgba(255, 255, 255, 0.5);
+            padding: 1.5rem 0;
+            text-align: center;
+            font-size: 0.875rem;
+            margin-top: 3rem;
+        }
+
+        .toast-container {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            z-index: 9999;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+        .toast {
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            color: #fff;
+            font-weight: 500;
+            font-size: 0.875rem;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            animation: slideUp 0.3s ease;
+        }
+        .toast-success {
+            background: #10b981;
+        }
+        .toast-info {
+            background: #2563eb;
+        }
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @media (max-width: 1024px) {
+            .offers-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        @media (max-width: 768px) {
+            .offers-grid {
+                grid-template-columns: 1fr;
+            }
+            .nav-links {
+                gap: 0.75rem;
+                flex-wrap: wrap;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header class="header">
+        <div class="container">
+            <nav class="navbar">
+                <a href="index.html" class="logo">
+                    <i class="fas fa-plane"></i> Fly<span>Booking</span>
+                </a>
+                <ul class="nav-links">
+                    <li><a href="index.html">Головна</a></li>
+                    <li><a href="offers.html" class="active">Пропозиції</a></li>
+                    <li><a href="bookings.html">Бронювання</a></li>
+                    <li><a href="bonus.html">Бонуси</a></li>
+                    <li><a href="profile.html">Профіль</a></li>
+                    <li><a href="settings.html">Налаштування</a></li>
+                    <li><a href="help.html">Допомога</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section class="container">
+        <h1 class="page-title">🔥 Всі пропозиції</h1>
+        <p class="page-subtitle">Найкращі ціни на авіаквитки зі знижками до 50%</p>
+
+        <div class="offers-grid" id="offersGrid">
+            <!-- Картки пропозицій будуть додані через JavaScript -->
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            &copy; 2026 FlyBooking. Всі права захищено.
+        </div>
+    </footer>
+
+    <div class="toast-container" id="toastContainer"></div>
+
+    <script>
+        const offersData = [
+            { origin: 'Київ (KBP)', dest: 'Париж (CDG)', discount: 35, oldPrice: '€250', newPrice: '€162',
+                airline: 'Ryanair', image: 'https://images.unsplash.com/photo-1502602898657-3e91760cbb34?w=600&h=400&fit=crop' },
+            { origin: 'Київ (KBP)', dest: 'Нью-Йорк (JFK)', discount: 28, oldPrice: '$890', newPrice: '$640',
+                airline: 'Turkish Airlines', image: 'https://images.unsplash.com/photo-1496442226666-8d4d0e62e6e9?w=600&h=400&fit=crop' },
+            { origin: 'Київ (KBP)', dest: 'Дубай (DXB)', discount: 42, oldPrice: '$520', newPrice: '$301',
+                airline: 'FlyDubai', image: 'https://images.unsplash.com/photo-1512453979798-5ea266f8880c?w=600&h=400&fit=crop' },
+            { origin: 'Львів (LWO)', dest: 'Берлін (BER)', discount: 22, oldPrice: '€180', newPrice: '€140',
+                airline: 'Wizz Air', image: 'https://images.unsplash.com/photo-1565967511849-76a60a516170?w=600&h=400&fit=crop' },
+            { origin: 'Одеса (ODS)', dest: 'Стамбул (IST)', discount: 30, oldPrice: '$220', newPrice: '$154',
+                airline: 'Pegasus', image: 'https://images.unsplash.com/photo-1527838832700-5051bea9b87f?w=600&h=400&fit=crop' },
+            { origin: 'Київ (KBP)', dest: 'Бангкок (BKK)', discount: 45, oldPrice: '$780', newPrice: '$429',
+                airline: 'Emirates', image: 'https://images.unsplash.com/photo-1508009603885-50cf7c8a2f97?w=600&h=400&fit=crop' },
+        ];
+
+        function renderOffers() {
+            const grid = document.getElementById('offersGrid');
+            grid.innerHTML = offersData.map(offer => `
+                <div class="offer-card">
+                    <div class="offer-image" style="background-image: url('${offer.image}');">
+                        <span class="offer-discount">-${offer.discount}%</span>
+                    </div>
+                    <div class="offer-body">
+                        <div class="offer-route">
+                            <span class="offer-origin">${offer.origin}</span>
+                            <span class="offer-arrow">✈</span>
+                            <span class="offer-destination">${offer.dest}</span>
+                        </div>
+                        <div class="offer-price">
+                            <span class="price-old">${offer.oldPrice}</span>
+                            <span class="price-new">${offer.newPrice}</span>
+                        </div>
+                        <div class="offer-meta">
+                            <span><i class="fas fa-plane"></i> ${offer.airline}</span>
+                            <span><i class="fas fa-calendar"></i> ${getRandomDate()}</span>
+                        </div>
+                        <button class="btn btn-primary btn-block" onclick="showToast('✅ Бронювання ${offer.dest} відкрито!', 'success')">
+                            Забронювати
+                        </button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function getRandomDate() {
+            const start = new Date(2026, 7, 1);
+            const end = new Date(2026, 10, 30);
+            const date = new Date(start.getTime() + Math.random() * (end.getTime() - start.getTime()));
+            return date.toLocaleDateString('uk-UA', { day: 'numeric', month: 'long' });
+        }
+
+        function showToast(message, type = 'info') {
+            const container = document.getElementById('toastContainer');
+            const toast = document.createElement('div');
+            toast.className = `toast toast-${type}`;
+            toast.textContent = message;
+            container.appendChild(toast);
+            setTimeout(() => {
+                toast.style.opacity = '0';
+                toast.style.transform = 'translateY(20px)';
+                toast.style.transition = 'all 0.3s ease';
+                setTimeout(() => toast.remove(), 300);
+            }, 3000);
+        }
+
+        renderOffers();
+        console.log('🔥 Пропозиції завантажено');
+    </script>
+
+</body>
+</html>
