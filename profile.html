@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Профіль — FlyBooking</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #f1f5f9;
+            color: #0f172a;
+            line-height: 1.6;
+        }
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+        }
+
+        .header {
+            background: #ffffff;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        .navbar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .logo {
+            font-size: 1.25rem;
+            font-weight: 800;
+            color: #0f172a;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .logo span {
+            color: #2563eb;
+        }
+        .nav-links {
+            display: flex;
+            gap: 1.5rem;
+            list-style: none;
+            align-items: center;
+        }
+        .nav-links a {
+            color: #64748b;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.875rem;
+            transition: color 0.2s;
+        }
+        .nav-links a:hover {
+            color: #2563eb;
+        }
+        .nav-links a.active {
+            color: #2563eb;
+            font-weight: 600;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.625rem 1.5rem;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 0.875rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            text-decoration: none;
+            font-family: inherit;
+        }
+        .btn-primary {
+            background: #2563eb;
+            color: #fff;
+        }
+        .btn-primary:hover {
+            background: #1d4ed8;
+            transform: translateY(-2px);
+        }
+        .btn-outline {
+            background: transparent;
+            color: #2563eb;
+            border: 2px solid #2563eb;
+        }
+        .btn-outline:hover {
+            background: #2563eb;
+            color: #fff;
+        }
+        .btn-danger {
+            background: #ef4444;
+            color: #fff;
+        }
+        .btn-danger:hover {
+            background: #dc2626;
+        }
+        .btn-sm {
+            padding: 0.25rem 0.75rem;
+            font-size: 0.75rem;
+        }
+
+        .profile-wrapper {
+            display: grid;
+            grid-template-columns: 300px 1fr;
+            gap: 2rem;
+            padding: 2rem 0;
+        }
+
+        .profile-sidebar {
+            background: #ffffff;
+            border-radius: 12px;
+            padding: 1.5rem;
+            text-align: center;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+            height: fit-content;
+        }
+        .profile-avatar {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            background: #2563eb;
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin: 0 auto 1rem;
+        }
+        .profile-name {
+            font-size: 1.25rem;
+            font-weight: 700;
+        }
+        .profile-email {
+            color: #64748b;
+            font-size: 0.875rem;
+        }
+        .profile-level {
+            margin-top: 0.5rem;
+            padding: 0.25rem 0.75rem;
+            background: #dbeafe;
+            color: #1e40af;
+            border-radius: 9999px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            display: inline-block;
+        }
+
+        .profile-menu {
+            list-style: none;
+            margin-top: 1.5rem;
+            text-align: left;
+        }
+        .profile-menu li {
+            border-bottom: 1px solid #f1f5f9;
+        }
+        .profile-menu li:last-child {
+            border-bottom: none;
+        }
+        .profile-menu a {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.625rem 0;
+            color: #475569;
+            text-decoration: none;
+            font-size: 0.875rem;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+        .profile-menu a:hover {
+            color: #2563eb;
+        }
+        .profile-menu a i {
+            width: 20px;
+            color: #94a3b8;
+        }
+
+        .profile-content {
+            background: #ffffff;
+            border-radius: 12px;
+            padding: 1.5rem;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+        }
+        .profile-content h2 {
+            font-size: 1.25rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.25rem;
+        }
+        .form-group label {
+            display: block;
+            font-weight: 600;
+            font-size: 0.875rem;
+            margin-bottom: 0.25rem;
+        }
+        .form-group input {
+            width: 100%;
+            padding: 0.625rem 1rem;
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            font-family: inherit;
+            font-size: 0.875rem;
+            transition: all 0.2s;
+        }
+        .form-group input:focus {
+            outline: none;
+            border-color: #2563eb;
+        }
+        .form-group input:disabled {
+            background: #f1f5f9;
+            cursor: not-allowed;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+
+        .footer {
+            background: #0f172a;
+            color: rgba(255, 255, 255, 0.5);
+            padding: 1.5rem 0;
+            text-align: center;
+            font-size: 0.875rem;
+            margin-top: 2rem;
+        }
+
+        .toast-container {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            z-index: 9999;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+        .toast {
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            color: #fff;
+            font-weight: 500;
+            font-size: 0.875rem;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            animation: slideUp 0.3s ease;
+        }
+        .toast-success {
+            background: #10b981;
+        }
+        .toast-error {
+            background: #ef4444;
+        }
+        .toast-info {
+            background: #2563eb;
+        }
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .profile-wrapper {
+                grid-template-columns: 1fr;
+            }
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+            .nav-links {
+                gap: 0.75rem;
+                flex-wrap: wrap;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header class="header">
+        <div class="container">
+            <nav class="navbar">
+                <a href="index.html" class="logo">
+                    <i class="fas fa-plane"></i> Fly<span>Booking</span>
+                </a>
+                <ul class="nav-links">
+                    <li><a href="index.html">Головна</a></li>
+                    <li><a href="offers.html">Пропозиції</a></li>
+                    <li><a href="bookings.html">Бронювання</a></li>
+                    <li><a href="bonus.html">Бонуси</a></li>
+                    <li><a href="profile.html" class="active">Профіль</a></li>
+                    <li><a href="settings.html">Налаштування</a></li>
+                    <li><a href="help.html">Допомога</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section class="container">
+        <div class="profile-wrapper">
+            <!-- Sidebar -->
+            <aside class="profile-sidebar">
+                <div class="profile-avatar">ОК</div>
+                <div class="profile-name">Олена Коваленко</div>
+                <div class="profile-email">olena@example.com</div>
+                <span class="profile-level">⭐ Золотий рівень</span>
+
+                <ul class="profile-menu">
+                    <li><a href="#"><i class="fas fa-user"></i> Особисті дані</a></li>
+                    <li><a href="#"><i class="fas fa-ticket"></i> Мої бронювання</a></li>
+                    <li><a href="#"><i class="fas fa-gift"></i> Бонуси</a></li>
+                    <li><a href="#"><i class="fas fa-cog"></i> Налаштування</a></li>
+                    <li><a href="help.html"><i class="fas fa-question-circle"></i> Допомога</a></li>
+                </ul>
+                <hr style="margin:1rem 0; border-color:#e2e8f0;">
+                <button class="btn btn-danger btn-sm" style="width:100%; justify-content:center;" onclick="showToast('👋 Ви вийшли з акаунта', 'info')">
+                    <i class="fas fa-sign-out-alt"></i> Вийти
+                </button>
+            </aside>
+
+            <!-- Main Content -->
+            <main class="profile-content">
+                <h2><i class="fas fa-user-edit"></i> Особиста інформація</h2>
+                <form id="profileForm" onsubmit="saveProfile(event)">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="firstName">Ім'я</label>
+                            <input type="text" id="firstName" value="Олена">
+                        </div>
+                        <div class="form-group">
+                            <label for="lastName">Прізвище</label>
+                            <input type="text" id="lastName" value="Коваленко">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" value="olena@example.com" disabled>
+                    </div>
+                    <div class="form-group">
+                        <label for="phone">Телефон</label>
+                        <input type="tel" id="phone" value="+380 44 123 45 67">
+                    </div>
+                    <div class="form-group">
+                        <label for="birthDate">Дата народження</label>
+                        <input type="date" id="birthDate" value="1990-05-15">
+                    </div>
+                    <div style="display:flex; gap:0.75rem; flex-wrap:wrap;">
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-save"></i> Зберегти зміни
+                        </button>
+                        <button type="button" class="btn btn-outline" onclick="resetProfile()">
+                            <i class="fas fa-undo"></i> Скинути
+                        </button>
+                    </div>
+                </form>
+            </main>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            &copy; 2026 FlyBooking. Всі права захищено.
+        </div>
+    </footer>
+
+    <div class="toast-container" id="toastContainer"></div>
+
+    <script>
+        function showToast(message, type = 'info') {
+            const container = document.getElementById('toastContainer');
+            const toast = document.createElement('div');
+            toast.className = `toast toast-${type}`;
+            toast.textContent = message;
+            container.appendChild(toast);
+            setTimeout(() => {
+                toast.style.opacity = '0';
+                toast.style.transform = 'translateY(20px)';
+                toast.style.transition = 'all 0.3s ease';
+                setTimeout(() => toast.remove(), 300);
+            }, 3000);
+        }
+
+        function saveProfile(e) {
+            e.preventDefault();
+            showToast('✅ Профіль успішно оновлено!', 'success');
+        }
+
+        function resetProfile() {
+            document.getElementById('firstName').value = 'Олена';
+            document.getElementById('lastName').value = 'Коваленко';
+            document.getElementById('phone').value = '+380 44 123 45 67';
+            document.getElementById('birthDate').value = '1990-05-15';
+            showToast('🔄 Дані скинуто', 'info');
+        }
+
+        console.log('👤 Профіль завантажено');
+    </script>
+
+</body>
+</html>
