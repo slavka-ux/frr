@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Бонуси — FlyBooking</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #f1f5f9;
+            color: #0f172a;
+            line-height: 1.6;
+        }
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+        }
+
+        .header {
+            background: #ffffff;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        .navbar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .logo {
+            font-size: 1.25rem;
+            font-weight: 800;
+            color: #0f172a;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .logo span {
+            color: #2563eb;
+        }
+        .nav-links {
+            display: flex;
+            gap: 1.5rem;
+            list-style: none;
+            align-items: center;
+        }
+        .nav-links a {
+            color: #64748b;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.875rem;
+            transition: color 0.2s;
+        }
+        .nav-links a:hover {
+            color: #2563eb;
+        }
+        .nav-links a.active {
+            color: #2563eb;
+            font-weight: 600;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.625rem 1.5rem;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 0.875rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            text-decoration: none;
+            font-family: inherit;
+        }
+        .btn-primary {
+            background: #2563eb;
+            color: #fff;
+        }
+        .btn-primary:hover {
+            background: #1d4ed8;
+            transform: translateY(-2px);
+        }
+        .btn-success {
+            background: #10b981;
+            color: #fff;
+        }
+        .btn-success:hover {
+            background: #059669;
+            transform: translateY(-2px);
+        }
+        .btn-outline {
+            background: transparent;
+            color: #2563eb;
+            border: 2px solid #2563eb;
+        }
+        .btn-outline:hover {
+            background: #2563eb;
+            color: #fff;
+        }
+        .btn-block {
+            width: 100%;
+            justify-content: center;
+        }
+
+        .page-title {
+            font-size: 2rem;
+            font-weight: 800;
+            margin: 2rem 0 0.25rem;
+        }
+        .page-subtitle {
+            color: #64748b;
+            margin-bottom: 2rem;
+        }
+
+        .bonus-summary {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+            margin-bottom: 2.5rem;
+        }
+        .bonus-card {
+            background: #ffffff;
+            padding: 1.5rem;
+            border-radius: 12px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+            text-align: center;
+        }
+        .bonus-card .icon {
+            font-size: 2rem;
+            color: #2563eb;
+            margin-bottom: 0.5rem;
+        }
+        .bonus-card .value {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: #0f172a;
+        }
+        .bonus-card .label {
+            color: #64748b;
+            font-size: 0.875rem;
+        }
+        .bonus-card .badge {
+            display: inline-block;
+            margin-top: 0.5rem;
+            padding: 0.25rem 0.75rem;
+            background: #dbeafe;
+            color: #1e40af;
+            border-radius: 9999px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+
+        .bonus-levels {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1rem;
+            margin-bottom: 2.5rem;
+        }
+        .level-card {
+            background: #ffffff;
+            padding: 1.25rem;
+            border-radius: 12px;
+            text-align: center;
+            border: 2px solid #e2e8f0;
+            transition: all 0.2s;
+            position: relative;
+        }
+        .level-card.active {
+            border-color: #2563eb;
+            background: #eff6ff;
+        }
+        .level-card .level-name {
+            font-weight: 700;
+            font-size: 1.125rem;
+        }
+        .level-card .level-desc {
+            font-size: 0.75rem;
+            color: #64748b;
+        }
+        .level-card .level-badge {
+            display: inline-block;
+            margin-top: 0.5rem;
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+        .level-card .level-badge.gold {
+            background: #fef3c7;
+            color: #92400e;
+        }
+        .level-card .level-badge.silver {
+            background: #e2e8f0;
+            color: #475569;
+        }
+        .level-card .level-badge.bronze {
+            background: #fde68a;
+            color: #78350f;
+        }
+        .level-card .level-badge.platinum {
+            background: #c7d2fe;
+            color: #3730a3;
+        }
+
+        .bonus-history {
+            background: #ffffff;
+            border-radius: 12px;
+            padding: 1.5rem;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+            overflow-x: auto;
+        }
+        .bonus-history h3 {
+            margin-bottom: 1rem;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.875rem;
+        }
+        th {
+            text-align: left;
+            padding: 0.75rem 0.5rem;
+            border-bottom: 2px solid #e2e8f0;
+            color: #64748b;
+            font-weight: 600;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+        }
+        td {
+            padding: 0.75rem 0.5rem;
+            border-bottom: 1px solid #f1f5f9;
+        }
+        .bonus-amount {
+            font-weight: 700;
+        }
+        .bonus-amount.positive {
+            color: #10b981;
+        }
+        .bonus-amount.negative {
+            color: #ef4444;
+        }
+
+        .footer {
+            background: #0f172a;
+            color: rgba(255, 255, 255, 0.5);
+            padding: 1.5rem 0;
+            text-align: center;
+            font-size: 0.875rem;
+            margin-top: 3rem;
+        }
+
+        .toast-container {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            z-index: 9999;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+        .toast {
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            color: #fff;
+            font-weight: 500;
+            font-size: 0.875rem;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            animation: slideUp 0.3s ease;
+        }
+        .toast-success {
+            background: #10b981;
+        }
+        .toast-info {
+            background: #2563eb;
+        }
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .bonus-summary {
+                grid-template-columns: 1fr;
+            }
+            .bonus-levels {
+                grid-template-columns: 1fr 1fr;
+            }
+            .nav-links {
+                gap: 0.75rem;
+                flex-wrap: wrap;
+            }
+        }
+        @media (max-width: 480px) {
+            .bonus-levels {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header class="header">
+        <div class="container">
+            <nav class="navbar">
+                <a href="index.html" class="logo">
+                    <i class="fas fa-plane"></i> Fly<span>Booking</span>
+                </a>
+                <ul class="nav-links">
+                    <li><a href="index.html">Головна</a></li>
+                    <li><a href="offers.html">Пропозиції</a></li>
+                    <li><a href="bookings.html">Бронювання</a></li>
+                    <li><a href="bonus.html" class="active">Бонуси</a></li>
+                    <li><a href="profile.html">Профіль</a></li>
+                    <li><a href="settings.html">Налаштування</a></li>
+                    <li><a href="help.html">Допомога</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section class="container">
+        <h1 class="page-title">🎁 Бонуси та знижки</h1>
+        <p class="page-subtitle">Заробляйте бали за кожну подорож та отримуйте ексклюзивні переваги</p>
+
+        <!-- Bonus Summary -->
+        <div class="bonus-summary">
+            <div class="bonus-card">
+                <div class="icon"><i class="fas fa-coins"></i></div>
+                <div class="value">1,250</div>
+                <div class="label">Бонусних балів</div>
+                <span class="badge">🔥 250 балів до наступного рівня</span>
+            </div>
+            <div class="bonus-card">
+                <div class="icon"><i class="fas fa-trophy"></i></div>
+                <div class="value">Золотий</div>
+                <div class="label">Ваш рівень</div>
+                <span class="badge">⭐ 10% кешбек</span>
+            </div>
+            <div class="bonus-card">
+                <div class="icon"><i class="fas fa-gift"></i></div>
+                <div class="value">3</div>
+                <div class="label">Доступних промокодів</div>
+                <span class="badge">🎟️ Застосувати</span>
+            </div>
+        </div>
+
+        <!-- Levels -->
+        <h3 style="margin-bottom: 1rem;">Рівні лояльності</h3>
+        <div class="bonus-levels">
+            <div class="level-card">
+                <div class="level-name">Бронзовий</div>
+                <div class="level-desc">0–500 балів</div>
+                <span class="level-badge bronze">2% кешбек</span>
+            </div>
+            <div class="level-card active">
+                <div class="level-name">Срібний</div>
+                <div class="level-desc">501–1 500 балів</div>
+                <span class="level-badge silver">5% кешбек</span>
+            </div>
+            <div class="level-card">
+                <div class="level-name">Золотий</div>
+                <div class="level-desc">1 501–3 000 балів</div>
+                <span class="level-badge gold">10% кешбек</span>
+            </div>
+            <div class="level-card">
+                <div class="level-name">Платиновий</div>
+                <div class="level-desc">3 001+ балів</div>
+                <span class="level-badge platinum">15% кешбек + VIP</span>
+            </div>
+        </div>
+
+        <!-- History -->
+        <div class="bonus-history">
+            <h3><i class="fas fa-clock-rotate-left"></i> Історія нарахувань</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Дата</th>
+                        <th>Подія</th>
+                        <th>Бали</th>
+                        <th>Статус</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>15.08.2026</td>
+                        <td>Бронювання Київ → Париж</td>
+                        <td class="bonus-amount positive">+160</td>
+                        <td><span class="badge" style="background:#d1fae5;color:#065f46;">Нараховано</span></td>
+                    </tr>
+                    <tr>
+                        <td>10.08.2026</td>
+                        <td>Активація промокоду SUMMER20</td>
+                        <td class="bonus-amount positive">+50</td>
+                        <td><span class="badge" style="background:#d1fae5;color:#065f46;">Нараховано</span></td>
+                    </tr>
+                    <tr>
+                        <td>05.08.2026</td>
+                        <td>Бронювання Львів → Нью-Йорк</td>
+                        <td class="bonus-amount positive">+320</td>
+                        <td><span class="badge" style="background:#d1fae5;color:#065f46;">Нараховано</span></td>
+                    </tr>
+                    <tr>
+                        <td>01.08.2026</td>
+                        <td>Використання балів</td>
+                        <td class="bonus-amount negative">-200</td>
+                        <td><span class="badge" style="background:#fee2e2;color:#991b1b;">Списано</span></td>
+                    </tr>
+                    <tr>
+                        <td>25.07.2026</td>
+                        <td>Реєстрація на сайті</td>
+                        <td class="bonus-amount positive">+100</td>
+                        <td><span class="badge" style="background:#d1fae5;color:#065f46;">Нараховано</span></td>
+                    </tr>
+                </tbody>
+            </table>
+            <div style="margin-top: 1rem; text-align: right;">
+                <button class="btn btn-primary btn-sm" onclick="showToast('📋 Вся історія завантажена', 'info')">
+                    <i class="fas fa-download"></i> Завантажити звіт
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            &copy; 2026 FlyBooking. Всі права захищено.
+        </div>
+    </footer>
+
+    <div class="toast-container" id="toastContainer"></div>
+
+    <script>
+        function showToast(message, type = 'info') {
+            const container = document.getElementById('toastContainer');
+            const toast = document.createElement('div');
+            toast.className = `toast toast-${type}`;
+            toast.textContent = message;
+            container.appendChild(toast);
+            setTimeout(() => {
+                toast.style.opacity = '0';
+                toast.style.transform = 'translateY(20px)';
+                toast.style.transition = 'all 0.3s ease';
+                setTimeout(() => toast.remove(), 300);
+            }, 3000);
+        }
+        console.log('🎁 Бонуси завантажено');
+    </script>
+
+</body>
+</html>
