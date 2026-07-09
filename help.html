@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Допомога — FlyBooking</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #f1f5f9;
+            color: #0f172a;
+            line-height: 1.6;
+        }
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+        }
+
+        .header {
+            background: #ffffff;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        .navbar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .logo {
+            font-size: 1.25rem;
+            font-weight: 800;
+            color: #0f172a;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .logo span {
+            color: #2563eb;
+        }
+        .nav-links {
+            display: flex;
+            gap: 1.5rem;
+            list-style: none;
+            align-items: center;
+        }
+        .nav-links a {
+            color: #64748b;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.875rem;
+            transition: color 0.2s;
+        }
+        .nav-links a:hover {
+            color: #2563eb;
+        }
+        .nav-links a.active {
+            color: #2563eb;
+            font-weight: 600;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.625rem 1.5rem;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 0.875rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            text-decoration: none;
+            font-family: inherit;
+        }
+        .btn-primary {
+            background: #2563eb;
+            color: #fff;
+        }
+        .btn-primary:hover {
+            background: #1d4ed8;
+            transform: translateY(-2px);
+        }
+        .btn-success {
+            background: #10b981;
+            color: #fff;
+        }
+        .btn-success:hover {
+            background: #059669;
+        }
+        .btn-outline {
+            background: transparent;
+            color: #2563eb;
+            border: 2px solid #2563eb;
+        }
+        .btn-outline:hover {
+            background: #2563eb;
+            color: #fff;
+        }
+
+        .page-title {
+            font-size: 2rem;
+            font-weight: 800;
+            margin: 2rem 0 0.25rem;
+        }
+        .page-subtitle {
+            color: #64748b;
+            margin-bottom: 2rem;
+        }
+
+        .help-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+            margin-bottom: 2.5rem;
+        }
+        .help-card {
+            background: #ffffff;
+            padding: 1.5rem;
+            border-radius: 12px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+            transition: all 0.2s;
+            cursor: pointer;
+        }
+        .help-card:hover {
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            transform: translateY(-2px);
+        }
+        .help-card .icon {
+            font-size: 1.75rem;
+            color: #2563eb;
+            margin-bottom: 0.5rem;
+        }
+        .help-card h3 {
+            font-size: 1.125rem;
+            margin-bottom: 0.25rem;
+        }
+        .help-card p {
+            color: #64748b;
+            font-size: 0.875rem;
+        }
+
+        .faq-section {
+            background: #ffffff;
+            border-radius: 12px;
+            padding: 1.5rem;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+            margin-bottom: 2.5rem;
+        }
+        .faq-section h3 {
+            margin-bottom: 1rem;
+        }
+        .faq-item {
+            border-bottom: 1px solid #f1f5f9;
+            padding: 1rem 0;
+        }
+        .faq-item:last-child {
+            border-bottom: none;
+        }
+        .faq-item .question {
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .faq-item .question:hover {
+            color: #2563eb;
+        }
+        .faq-item .answer {
+            display: none;
+            padding-top: 0.5rem;
+            color: #64748b;
+            font-size: 0.875rem;
+        }
+        .faq-item .answer.open {
+            display: block;
+        }
+
+        .contact-section {
+            background: #ffffff;
+            border-radius: 12px;
+            padding: 1.5rem;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+        }
+        .contact-section h3 {
+            margin-bottom: 1rem;
+        }
+        .contact-methods {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+        }
+        .contact-method {
+            text-align: center;
+            padding: 1rem;
+            border-radius: 8px;
+            background: #f8fafc;
+        }
+        .contact-method .icon {
+            font-size: 1.5rem;
+            color: #2563eb;
+        }
+        .contact-method .label {
+            font-weight: 600;
+            margin-top: 0.25rem;
+        }
+        .contact-method .value {
+            font-size: 0.875rem;
+            color: #64748b;
+        }
+
+        .footer {
+            background: #0f172a;
+            color: rgba(255, 255, 255, 0.5);
+            padding: 1.5rem 0;
+            text-align: center;
+            font-size: 0.875rem;
+            margin-top: 3rem;
+        }
+
+        .toast-container {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            z-index: 9999;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+        .toast {
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            color: #fff;
+            font-weight: 500;
+            font-size: 0.875rem;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            animation: slideUp 0.3s ease;
+        }
+        .toast-success {
+            background: #10b981;
+        }
+        .toast-info {
+            background: #2563eb;
+        }
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .help-grid {
+                grid-template-columns: 1fr;
+            }
+            .contact-methods {
+                grid-template-columns: 1fr;
+            }
+            .nav-links {
+                gap: 0.75rem;
+                flex-wrap: wrap;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header class="header">
+        <div class="container">
+            <nav class="navbar">
+                <a href="index.html" class="logo">
+                    <i class="fas fa-plane"></i> Fly<span>Booking</span>
+                </a>
+                <ul class="nav-links">
+                    <li><a href="index.html">Головна</a></li>
+                    <li><a href="offers.html">Пропозиції</a></li>
+                    <li><a href="bookings.html">Бронювання</a></li>
+                    <li><a href="bonus.html">Бонуси</a></li>
+                    <li><a href="profile.html">Профіль</a></li>
+                    <li><a href="settings.html">Налаштування</a></li>
+                    <li><a href="help.html" class="active">Допомога</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section class="container">
+        <h1 class="page-title">❓ Допомога</h1>
+        <p class="page-subtitle">Відповіді на найпоширеніші запитання та контакти підтримки</p>
+
+        <!-- Help Cards -->
+        <div class="help-grid">
+            <div class="help-card" onclick="showToast('📖 Відкривається довідник...', 'info')">
+                <div class="icon"><i class="fas fa-book"></i></div>
+                <h3>Довідник користувача</h3>
+                <p>Повний посібник з використання платформи</p>
+            </div>
+            <div class="help-card" onclick="showToast('🎬 Відкриваються відеоуроки...', 'info')">
+                <div class="icon"><i class="fas fa-video"></i></div>
+                <h3>Відеоуроки</h3>
+                <p>Покрокові інструкції у відеоформаті</p>
+            </div>
+            <div class="help-card" onclick="showToast('💬 Відкривається чат підтримки...', 'info')">
+                <div class="icon"><i class="fas fa-comment-dots"></i></div>
+                <h3>Чат з підтримкою</h3>
+                <p>Живе спілкування з нашою командою</p>
+            </div>
+            <div class="help-card" onclick="showToast('🐛 Відкривається форма звіту...', 'info')">
+                <div class="icon"><i class="fas fa-bug"></i></div>
+                <h3>Повідомити про помилку</h3>
+                <p>Допоможіть нам покращити сервіс</p>
+            </div>
+        </div>
+
+        <!-- FAQ -->
+        <div class="faq-section">
+            <h3><i class="fas fa-question-circle"></i> Часті запитання</h3>
+            <div class="faq-item">
+                <div class="question" onclick="toggleFaq(this)">
+                    Як скасувати бронювання?
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="answer">Перейдіть у розділ "Мої бронювання", знайдіть потрібний квиток і натисніть кнопку "Скасувати". Повернення коштів відбувається згідно з тарифом.</div>
+            </div>
+            <div class="faq-item">
+                <div class="question" onclick="toggleFaq(this)">
+                    Як отримати бонусні бали?
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="answer">Бали нараховуються за кожне підтверджене бронювання. Ви також отримуєте бонуси за реєстрацію, активацію промокодів та участь в акціях.</div>
+            </div>
+            <div class="faq-item">
+                <div class="question" onclick="toggleFaq(this)">
+                    Чи можна змінити дату вильоту?
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="answer">Так, зміна дати можлива залежно від тарифу. Зв'яжіться з підтримкою або скористайтеся функцією "Змінити" у бронюванні.</div>
+            </div>
+            <div class="faq-item">
+                <div class="question" onclick="toggleFaq(this)">
+                    Як додати багаж?
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="answer">Додатковий багаж можна придбати при бронюванні або в особистому кабінеті в розділі "Мої бронювання".</div>
+            </div>
+        </div>
+
+        <!-- Contact -->
+        <div class="contact-section">
+            <h3><i class="fas fa-phone"></i> Наші контакти</h3>
+            <div class="contact-methods">
+                <div class="contact-method">
+                    <div class="icon"><i class="fas fa-envelope"></i></div>
+                    <div class="label">Email</div>
+                    <div class="value">support@flybooking.com</div>
+                </div>
+                <div class="contact-method">
+                    <div class="icon"><i class="fas fa-phone"></i></div>
+                    <div class="label">Телефон</div>
+                    <div class="value">+380 44 123 45 67</div>
+                </div>
+                <div class="contact-method">
+                    <div class="icon"><i class="fab fa-telegram"></i></div>
+                    <div class="label">Telegram</div>
+                    <div class="value">@flybooking_support</div>
+                </div>
+            </div>
+            <div style="margin-top:1.5rem; text-align:center;">
+                <button class="btn btn-primary" onclick="showToast('📧 Лист підтримки відкрито!', 'success')">
+                    <i class="fas fa-paper-plane"></i> Написати в підтримку
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            &copy; 2026 FlyBooking. Всі права захищено.
+        </div>
+    </footer>
+
+    <div class="toast-container" id="toastContainer"></div>
+
+    <script>
+        function showToast(message, type = 'info') {
+            const container = document.getElementById('toastContainer');
+            const toast = document.createElement('div');
+            toast.className = `toast toast-${type}`;
+            toast.textContent = message;
+            container.appendChild(toast);
+            setTimeout(() => {
+                toast.style.opacity = '0';
+                toast.style.transform = 'translateY(20px)';
+                toast.style.transition = 'all 0.3s ease';
+                setTimeout(() => toast.remove(), 300);
+            }, 3000);
+        }
+
+        function toggleFaq(el) {
+            const answer = el.nextElementSibling;
+            answer.classList.toggle('open');
+            const icon = el.querySelector('i');
+            icon.classList.toggle('fa-chevron-down');
+            icon.classList.toggle('fa-chevron-up');
+        }
+
+        console.log('❓ Допомога завантажена');
+    </script>
+
+</body>
+</html>
