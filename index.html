@@ -213,6 +213,127 @@
             gap: 0.5rem;
         }
 
+        /* ===== Випадаюче меню користувача ===== */
+        .user-dropdown-wrapper {
+            position: relative;
+            display: inline-block;
+        }
+
+        .user-menu-btn {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.25rem 0.5rem 0.25rem 0.25rem;
+            border-radius: var(--radius-full);
+            background: var(--color-gray-100);
+            border: none;
+            cursor: pointer;
+            transition: all var(--transition);
+            font-family: var(--font-family);
+            font-weight: 600;
+            font-size: 0.875rem;
+            color: var(--color-gray-700);
+            position: relative;
+        }
+        .user-menu-btn:hover {
+            background: var(--color-gray-200);
+        }
+
+        .user-menu-btn .avatar {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: var(--color-primary-gradient);
+            color: var(--color-white);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 0.875rem;
+        }
+
+        .user-menu-btn .chevron {
+            font-size: 0.75rem;
+            color: var(--color-gray-400);
+            transition: transform var(--transition);
+        }
+
+        .user-menu-btn.active .chevron {
+            transform: rotate(180deg);
+        }
+
+        .user-dropdown {
+            position: absolute;
+            top: calc(100% + 8px);
+            right: 0;
+            min-width: 220px;
+            background: var(--color-white);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow-xl);
+            padding: 0.5rem;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-8px);
+            transition: all var(--transition);
+            z-index: 1001;
+        }
+
+        .user-dropdown.open {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .user-dropdown .dropdown-item {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.625rem 1rem;
+            border-radius: var(--radius);
+            color: var(--color-gray-700);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.875rem;
+            transition: all var(--transition);
+            width: 100%;
+            border: none;
+            background: transparent;
+            cursor: pointer;
+            font-family: var(--font-family);
+        }
+
+        .user-dropdown .dropdown-item:hover {
+            background: var(--color-gray-50);
+            color: var(--color-primary);
+        }
+
+        .user-dropdown .dropdown-item i {
+            width: 20px;
+            text-align: center;
+            color: var(--color-gray-400);
+        }
+
+        .user-dropdown .dropdown-item:hover i {
+            color: var(--color-primary);
+        }
+
+        .user-dropdown .dropdown-divider {
+            height: 1px;
+            background: var(--color-gray-200);
+            margin: 0.25rem 0.5rem;
+        }
+
+        .user-dropdown .dropdown-item.logout {
+            color: var(--color-danger);
+        }
+        .user-dropdown .dropdown-item.logout:hover {
+            background: #fef2f2;
+            color: var(--color-danger);
+        }
+        .user-dropdown .dropdown-item.logout:hover i {
+            color: var(--color-danger);
+        }
+
         /* ===== Мобільне меню ===== */
         .mobile-toggle {
             display: none;
@@ -1391,15 +1512,9 @@
 
                 <ul class="nav-links">
                     <li><a href="#offers">Пропозиції</a></li>
-                    <li><a href="offers.html">Всі пропозиції</a></li>
                     <li><a href="#features">Переваги</a></li>
                     <li><a href="#testimonials">Відгуки</a></li>
-                    <li><a href="admin.html">Адмін</a></li>
-                    <li><a href="bonus.html">Бонуси</a></li>
-                    <li><a href="bookings.html">Бронювання</a></li>
-                    <li><a href="help.html">Допомога</a></li>
-                    <li><a href="profile.html">Профіль</a></li>
-                    <li><a href="settings.html">Налаштування</a></li>
+                    <li><a href="offers.html">Всі пропозиції</a></li>
                     <li class="nav-auth" id="navAuth"></li>
                 </ul>
 
@@ -1736,13 +1851,6 @@
         <div class="container">
             <div class="footer-bottom">
                 <div class="footer-bottom-links">
-                    <a href="admin.html">Адмін</a>
-                    <a href="bonus.html">Бонуси</a>
-                    <a href="bookings.html">Бронювання</a>
-                    <a href="help.html">Допомога</a>
-                    <a href="offers.html">Пропозиції</a>
-                    <a href="profile.html">Профіль</a>
-                    <a href="settings.html">Налаштування</a>
                     <a href="#" onclick="showToast('📜 Політика конфіденційності', 'info')">Політика конфіденційності</a>
                     <a href="#" onclick="showToast('📜 Умови використання', 'info')">Умови використання</a>
                     <a href="#" onclick="showToast('🍪 Налаштування cookies', 'info')">Cookies</a>
@@ -1903,11 +2011,11 @@
         // ============================================
         const offerData = [
             { origin: 'Київ (KBP)', dest: 'Париж (CDG)', discount: 35, oldPrice: '€250', newPrice: '€162',
-            airline: 'Ryanair', image: 'https://images.unsplash.com/photo-1502602898657-3e91760cbb34?w=600&h=400&fit=crop' },
+                airline: 'Ryanair', image: 'https://images.unsplash.com/photo-1502602898657-3e91760cbb34?w=600&h=400&fit=crop' },
             { origin: 'Київ (KBP)', dest: 'Нью-Йорк (JFK)', discount: 28, oldPrice: '$890', newPrice: '$640',
-            airline: 'Turkish Airlines', image: 'https://images.unsplash.com/photo-1496442226666-8d4d0e62e6e9?w=600&h=400&fit=crop' },
+                airline: 'Turkish Airlines', image: 'https://images.unsplash.com/photo-1496442226666-8d4d0e62e6e9?w=600&h=400&fit=crop' },
             { origin: 'Київ (KBP)', dest: 'Дубай (DXB)', discount: 42, oldPrice: '$520', newPrice: '$301',
-            airline: 'FlyDubai', image: 'https://images.unsplash.com/photo-1512453979798-5ea266f8880c?w=600&h=400&fit=crop' },
+                airline: 'FlyDubai', image: 'https://images.unsplash.com/photo-1512453979798-5ea266f8880c?w=600&h=400&fit=crop' },
         ];
 
         // ============================================
@@ -1926,7 +2034,7 @@
         }
 
         // ============================================
-        // РЕНДЕР НАВІГАЦІЇ
+        // РЕНДЕР НАВІГАЦІЇ (згідно з другим фото)
         // ============================================
         function renderNav() {
             const user = getUser();
@@ -1944,14 +2052,14 @@
                             <i class="fas fa-chevron-down chevron"></i>
                         </button>
                         <div class="user-dropdown" id="userDropdown">
-                            <a href="admin.html" class="dropdown-item">
-                                <i class="fas fa-user-shield"></i> Адмін
-                            </a>
                             <a href="profile.html" class="dropdown-item">
                                 <i class="fas fa-user"></i> Мій профіль
                             </a>
                             <a href="bookings.html" class="dropdown-item">
                                 <i class="fas fa-ticket-alt"></i> Мої бронювання
+                            </a>
+                            <a href="edit-profile.html" class="dropdown-item">
+                                <i class="fas fa-user-edit"></i> Редагувати профіль
                             </a>
                             <a href="bonus.html" class="dropdown-item">
                                 <i class="fas fa-gift"></i> Бонуси
@@ -1972,15 +2080,15 @@
 
                 mobileNav.innerHTML = `
                     <li><a href="#offers">Пропозиції</a></li>
-                    <li><a href="offers.html">Всі пропозиції</a></li>
                     <li><a href="#features">Переваги</a></li>
                     <li><a href="#testimonials">Відгуки</a></li>
-                    <li><a href="admin.html">Адмін</a></li>
+                    <li><a href="offers.html">Всі пропозиції</a></li>
+                    <li><a href="profile.html">Мій профіль</a></li>
+                    <li><a href="bookings.html">Мої бронювання</a></li>
+                    <li><a href="edit-profile.html">Редагувати профіль</a></li>
                     <li><a href="bonus.html">Бонуси</a></li>
-                    <li><a href="bookings.html">Бронювання</a></li>
-                    <li><a href="help.html">Допомога</a></li>
-                    <li><a href="profile.html">Профіль</a></li>
                     <li><a href="settings.html">Налаштування</a></li>
+                    <li><a href="help.html">Допомога</a></li>
                     <li>
                         <button class="btn btn-danger btn-block" onclick="handleLogout()">
                             Вийти
@@ -1988,7 +2096,7 @@
                     </li>
                 `;
 
-                // Випадаюче меню користувача (десктоп)
+                // Випадаюче меню користувача
                 setTimeout(function() {
                     const menuBtn = document.getElementById('userMenuBtn');
                     const dropdown = document.getElementById('userDropdown');
@@ -2008,7 +2116,7 @@
                 }, 50);
 
             } else {
-                // Неавторизований користувач
+                // Неавторизований користувач — показуємо кнопки входу/реєстрації
                 navAuth.innerHTML = `
                     <button class="btn btn-outline btn-sm" onclick="openModal('login')">
                         <i class="fas fa-sign-in-alt"></i> Увійти
@@ -2020,15 +2128,9 @@
 
                 mobileNav.innerHTML = `
                     <li><a href="#offers">Пропозиції</a></li>
-                    <li><a href="offers.html">Всі пропозиції</a></li>
                     <li><a href="#features">Переваги</a></li>
                     <li><a href="#testimonials">Відгуки</a></li>
-                    <li><a href="admin.html">Адмін</a></li>
-                    <li><a href="bonus.html">Бонуси</a></li>
-                    <li><a href="bookings.html">Бронювання</a></li>
-                    <li><a href="help.html">Допомога</a></li>
-                    <li><a href="profile.html">Профіль</a></li>
-                    <li><a href="settings.html">Налаштування</a></li>
+                    <li><a href="offers.html">Всі пропозиції</a></li>
                     <li>
                         <button class="btn btn-outline btn-block" onclick="openModal('login')">
                             Увійти
